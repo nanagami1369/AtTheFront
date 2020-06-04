@@ -1,10 +1,10 @@
 ﻿using NHotkey;
 using NHotkey.WindowsForms;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 namespace AtTheFront
 {
     public class NoneForm : Form
@@ -27,9 +27,26 @@ namespace AtTheFront
             menu.Items.Add(menuItem);
             icon.ContextMenuStrip = menu;
         }
+
+        private List<IntPtr> CurrentAtTheFrontWindowHandle { get; set; } = new List<IntPtr>();
+
         void ToFront(object sender, HotkeyEventArgs e)
         {
+            IntPtr handle = NativeMethods.GetForegroundWindow();
+            var isExists = CurrentAtTheFrontWindowHandle.Any(x => x == handle);
+            if (isExists)
+            {
+                NativeMethods.UnSetAtTheFront(handle);
+                CurrentAtTheFrontWindowHandle.Remove(handle);
+            }
+            else
+            {
+                NativeMethods.SetAtTheFront(handle);
+                CurrentAtTheFrontWindowHandle.Add(handle);
+            }
         }
+
+
         public NoneForm()
         {
             ShowInTaskbar = false;
@@ -37,5 +54,30 @@ namespace AtTheFront
             HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), Keys.Control | Keys.Alt | Keys.O, ToFront);
         }
 
+        private static class NativeMethods
+        {
+            static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+            static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+            const int SWP_SHOWWINDOW = 0x0040;
+            const uint SWP_NOSIZE = 0x0001;
+            const uint SWP_NOMOVE = 0x0002;
+
+            // (x, y), (cx, cy)を無視するようにする.
+            const uint TOPMOST_FLAGS = (SWP_NOSIZE | SWP_NOMOVE);
+
+            public static bool SetAtTheFront(IntPtr handle)
+                => SetWindowPos(handle, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
+
+            public static bool UnSetAtTheFront(IntPtr handle)
+                => SetWindowPos(handle, HWND_NOTOPMOST, 0, 0, 0, 0, (SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW));
+
+            // Declare external functions.
+            [DllImport("user32.dll")]
+            public static extern IntPtr GetForegroundWindow();
+
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint flags);
+        }
     }
 }
