@@ -18,9 +18,9 @@ namespace AtTheFront
             }
             var keysString = stringData.Split('+');
             Keys keys;
-            if (KeysTryParse(keysString[0], out var furstKey))
+            if (KeysTryParse(keysString[0], out var beginKey))
             {
-                keys = furstKey;
+                keys = beginKey;
             }
             else
             {
