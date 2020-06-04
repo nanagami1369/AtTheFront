@@ -51,8 +51,16 @@ namespace AtTheFront
         {
             ShowInTaskbar = false;
             SetComponents();
-            var keys = SettingManager.StringToKeys(option);
-            HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), keys, ToFront);
+            try
+            {
+                var keys = SettingManager.StringToKeys(option);
+                HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), keys, ToFront);
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show(e.Message);
+                Environment.Exit(-1);
+            }
         }
 
         private static class NativeMethods

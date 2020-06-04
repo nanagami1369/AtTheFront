@@ -24,7 +24,7 @@ namespace AtTheFront
             }
             else
             {
-                throw new Exception("変換出来ない文字列が検出されました。");
+                throw new FormatException("変換出来ない文字列が検出されました。");
             }
             for (int index = 1; index < keysString.Length; index++)
             {
@@ -34,7 +34,7 @@ namespace AtTheFront
                 }
                 else
                 {
-                    throw new Exception("変換出来ない文字列が検出されました。");
+                    throw new FormatException("変換出来ない文字列が検出されました。");
                 }
             }
             return keys;
