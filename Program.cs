@@ -9,10 +9,10 @@ namespace AtTheFront
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            var app = new NoneForm();
+            var app = new NoneForm(args.Length != 0 ? args[0] : null);
             Application.Run();
         }
     }

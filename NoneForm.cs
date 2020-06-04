@@ -47,11 +47,12 @@ namespace AtTheFront
         }
 
 
-        public NoneForm()
+        public NoneForm(string option)
         {
             ShowInTaskbar = false;
             SetComponents();
-            HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), Keys.Control | Keys.Alt | Keys.O, ToFront);
+            var keys = SettingManager.StringToKeys(option);
+            HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), keys, ToFront);
         }
 
         private static class NativeMethods
