@@ -1,3 +1,5 @@
+﻿using NHotkey;
+using NHotkey.WindowsForms;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -25,10 +27,14 @@ namespace AtTheFront
             menu.Items.Add(menuItem);
             icon.ContextMenuStrip = menu;
         }
+        void ToFront(object sender, HotkeyEventArgs e)
+        {
+        }
         public NoneForm()
         {
             ShowInTaskbar = false;
             SetComponents();
+            HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), Keys.Control | Keys.Alt | Keys.O, ToFront);
         }
 
     }
