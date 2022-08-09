@@ -11,7 +11,6 @@ namespace AtTheFront
         [STAThread]
         static void Main(string[] args)
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             var app = new NoneForm(args.Length != 0 ? args[0] : null);
             Application.Run();
         }
