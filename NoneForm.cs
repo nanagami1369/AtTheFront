@@ -1,6 +1,4 @@
-﻿using NHotkey;
-using NHotkey.WindowsForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,8 +7,10 @@ namespace AtTheFront
 {
     public class NoneForm : Form
     {
+        private HotKeyManager _hotkeyManager = new HotKeyManager();
         private void Close_Click(object sender, EventArgs e)
         {
+            _hotkeyManager.UnRegister(this);
             Application.Exit();
         }
 
@@ -30,7 +30,7 @@ namespace AtTheFront
 
         private List<IntPtr> CurrentAtTheFrontWindowHandle { get; set; } = new List<IntPtr>();
 
-        void ToFront(object sender, HotkeyEventArgs e)
+        void ToFront()
         {
             IntPtr handle = NativeMethods.GetForegroundWindow();
             var isExists = CurrentAtTheFrontWindowHandle.Any(x => x == handle);
@@ -54,13 +54,19 @@ namespace AtTheFront
             try
             {
                 var keys = SettingManager.StringToKeys(option);
-                HotkeyManager.Current.AddOrReplace(nameof(AtTheFront), keys, ToFront);
+                _hotkeyManager.Register(this, keys, ToFront);
             }
             catch (FormatException e)
             {
                 MessageBox.Show(e.Message);
                 Environment.Exit(-1);
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            _hotkeyManager.WndProcExecMethod(ref m);
         }
 
         private static class NativeMethods
