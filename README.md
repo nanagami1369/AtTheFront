@@ -1,18 +1,20 @@
 # AtTheFront
 
-最前面でポーズをUSキーでも使いたかったんや…
+最前面でポーズを US キーでも使いたかったんや…
 
 ショートカットキーを入力するとアクティブなウィンドウが最前面に固定される奴
 
-デフォルトだとShift+Insert
+デフォルトだと Win+Insert
 
-## キーボードショートカットの変え方
+## 実行方法
 
 ```cmd
+REM Win+Insert
+AtTheFront.exe
 REM Alt+O
 AtTheFront.exe "Alt+O"
 REM Ctrl+Shift+K
-AtTheFront.exe "Control+Shift+K"
+AtTheFront.exe "Ctrl+Shift+K"
 ```
 
 ## build
