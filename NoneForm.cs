@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System;
 using System.Windows.Forms;
 namespace AtTheFront
 {
@@ -56,16 +53,17 @@ namespace AtTheFront
             SetComponents();
             try
             {
-                Keys keys;
+                (KeyModifier, Keys) keys;
                 if (string.IsNullOrWhiteSpace(option))
                 {
-                    keys = Keys.Shift | Keys.Insert;
+                    keys = (KeyModifier.MOD_WIN, Keys.Insert);
                 }
                 else
                 {
                     keys = SettingManager.StringToKeys(option);
                 }
-                _hotkeyManager.Register(this, keys, ToFront);
+                var (keyModifier, key) = keys;
+                _hotkeyManager.Register(this, keyModifier, key, ToFront);
             }
             catch (FormatException e)
             {

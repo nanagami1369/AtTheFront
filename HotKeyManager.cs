@@ -14,26 +14,8 @@ namespace AtTheFront
         private const int WM_HOTKEY = 0x0312;
         private Action _execCommand;
 
-        public void Register(Form form, Keys keys, Action execCommand)
+        public void Register(Form form, KeyModifier keyModifier, Keys key, Action execCommand)
         {
-            KeyModifier keyModifier = KeyModifier.NONE;
-            if (keys.HasFlag(Keys.Control) || keys.HasFlag(Keys.ControlKey) || keys.HasFlag(Keys.LControlKey) || keys.HasFlag(Keys.RControlKey))
-            {
-                keyModifier |= KeyModifier.MOD_CONTROL;
-            }
-            if (keys.HasFlag(Keys.Alt))
-            {
-                keyModifier |= KeyModifier.MOD_ALT;
-            }
-            if (keys.HasFlag(Keys.Shift) || keys.HasFlag(Keys.ShiftKey) || keys.HasFlag(Keys.LShiftKey) || keys.HasFlag(Keys.RShiftKey))
-            {
-                keyModifier |= KeyModifier.MOD_SHIFT;
-            }
-            if (keys.HasFlag(Keys.LWin) || keys.HasFlag(Keys.RWin))
-            {
-                keyModifier |= KeyModifier.MOD_WIN;
-            }
-            var key = keys & ~Keys.Modifiers;
             _execCommand = execCommand;
             NativeMethods.RegisterHotKey(form.Handle, _hotKeyId, (int)keyModifier, key.GetHashCode());
         }
@@ -60,16 +42,6 @@ namespace AtTheFront
             [DllImport("user32.dll")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        }
-
-        [Flags]
-        private enum KeyModifier
-        {
-            NONE = 0,
-            MOD_ALT = 1,
-            MOD_CONTROL = 2,
-            MOD_SHIFT = 4,
-            MOD_WIN = 8
         }
     }
 }
