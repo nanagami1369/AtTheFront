@@ -53,7 +53,15 @@ namespace AtTheFront
             SetComponents();
             try
             {
-                var keys = SettingManager.StringToKeys(option);
+                Keys keys;
+                if (string.IsNullOrWhiteSpace(option))
+                {
+                    keys = Keys.Shift | Keys.Insert;
+                }
+                else
+                {
+                    keys = SettingManager.StringToKeys(option);
+                }
                 _hotkeyManager.Register(this, keys, ToFront);
             }
             catch (FormatException e)

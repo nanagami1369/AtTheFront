@@ -22,10 +22,11 @@ namespace AtTheFront
 
         public static Keys StringToKeys(string stringData)
         {
-            if (string.IsNullOrWhiteSpace(stringData))
+            if (stringData is null)
             {
-                return Keys.Shift | Keys.Insert;
+                throw new NullReferenceException($"{nameof(stringData)} is null");
             }
+
             var keysString = stringData.Split('+');
             Keys keys;
             if (KeysTryParse(keysString[0], out var beginKey))
