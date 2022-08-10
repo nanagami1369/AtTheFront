@@ -60,7 +60,7 @@ namespace AtTheFront
                 }
                 else
                 {
-                    keys = SettingManager.StringToKeys(option);
+                    keys = StringKeysParser.StringToKeys(option);
                 }
                 var (keyModifier, key) = keys;
                 _hotkeyManager.Register(this, keyModifier, key, ToFront);

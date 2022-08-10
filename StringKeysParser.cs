@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace AtTheFront
 {
-    public static class SettingManager
+    public static class StringKeysParser
     {
         private static bool KeysTryParse(string s, out Keys key)
         {
