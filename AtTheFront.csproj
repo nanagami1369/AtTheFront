@@ -5,6 +5,7 @@
     <TargetFramework>net472</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+	<Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -30,6 +31,9 @@
     <None Update="README.md">
       <CopyToOutputDirectory Condition="'$(Configuration)' == 'Release'">PreserveNewest</CopyToOutputDirectory>
     </None>
+	<None Update="LICENSE">
+	  <CopyToOutputDirectory Condition="'$(Configuration)' == 'Release'">PreserveNewest</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
