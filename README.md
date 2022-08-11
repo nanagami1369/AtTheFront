@@ -10,6 +10,15 @@
 
 ## 実行方法
 
+AtTheFront.exe {{HotKey}}
+
+### HotKeyについて
+
+1. HotKeyは、修飾キー+任意のキーの組み合わせからなる
+2. 修飾キーとして`Shift`、`Ctrl`,`Alt`,`Win`,`Windows`の5つが使える
+3. 修飾キーは複数組み合わせて使える (ex:`Shift+Ctrl+K`
+4. 任意のキーの名称は、WindowsFormの[Keys列挙型](https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.forms.keys?view=windowsdesktop-6.0)の名称が使える(ただし、`Ctrrol`、`Shift`、`Alt`を除く)
+
 ```cmd
 REM Win+Insert
 AtTheFront.exe
@@ -18,6 +27,10 @@ AtTheFront.exe "Alt+O"
 REM Ctrl+Shift+K
 AtTheFront.exe "Ctrl+Shift+K"
 ```
+
+## 終了方法
+
+タスクバーのアイコンを右クリック
 
 ## build
 
