@@ -11,27 +11,10 @@ namespace AtTheFront
         [STAThread]
         static void Main(string[] args)
         {
-            var hotKeyString = args.Length != 0 ? args[0] : null;
-            try
-            {
-                (KeyModifier, Keys) keys;
-                if (string.IsNullOrWhiteSpace(hotKeyString))
-                {
-                    keys = (KeyModifier.MOD_WIN, Keys.Insert);
-                }
-                else
-                {
-                    keys = StringKeysParser.StringToKeys(hotKeyString);
-                }
-                var (keyModifier, key) = keys;
-                var app = new NoneForm(keyModifier, key);
-                Application.Run();
-            }
-            catch (FormatException e)
-            {
-                MessageBox.Show(e.Message);
-                throw;
-            }
+            var dialog = new HotKeyDialog();
+            dialog.ShowDialog();
+            var app = new NoneForm(dialog.Modifier, dialog.Key);
+            Application.Run();
         }
     }
 }
