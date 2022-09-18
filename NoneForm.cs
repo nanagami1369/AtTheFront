@@ -47,29 +47,11 @@ namespace AtTheFront
         }
 
 
-        public NoneForm(string option)
+        public NoneForm(KeyModifier keyModifier, Keys key)
         {
             ShowInTaskbar = false;
             SetComponents();
-            try
-            {
-                (KeyModifier, Keys) keys;
-                if (string.IsNullOrWhiteSpace(option))
-                {
-                    keys = (KeyModifier.MOD_WIN, Keys.Insert);
-                }
-                else
-                {
-                    keys = StringKeysParser.StringToKeys(option);
-                }
-                var (keyModifier, key) = keys;
-                _hotkeyManager.Register(this, keyModifier, key, ToFront);
-            }
-            catch (FormatException e)
-            {
-                MessageBox.Show(e.Message);
-                Environment.Exit(-1);
-            }
+            _hotkeyManager.Register(this, keyModifier, key, ToFront);
         }
 
         protected override void WndProc(ref Message m)
