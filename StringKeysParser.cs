@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace AtTheFront
@@ -18,7 +18,7 @@ namespace AtTheFront
             }
         }
 
-        private static bool KeysModifireParse(string s, out KeyModifier keyModifier)
+        private static bool KeysTryModifierParse(string s, out KeyModifier keyModifier)
         {
             if (s == "Shift")
             {
@@ -70,7 +70,7 @@ namespace AtTheFront
             KeyModifier keyModifier = KeyModifier.NONE;
             for (int index = 0; index < keyStrings.Length - 1; index++)
             {
-                if (KeysModifireParse(keyStrings[index], out var inputKeyModifier))
+                if (KeysTryModifierParse(keyStrings[index], out var inputKeyModifier))
                 {
                     keyModifier |= inputKeyModifier;
                 }
