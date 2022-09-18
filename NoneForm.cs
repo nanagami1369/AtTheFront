@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 namespace AtTheFront
 {
     public class NoneForm : Form
     {
-        private HotKeyManager _hotkeyManager = new HotKeyManager();
+        private readonly HotKeyManager _hotkeyManager = new HotKeyManager();
         private void Close_Click(object sender, EventArgs e)
         {
             _hotkeyManager.UnRegister(this);
