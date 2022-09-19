@@ -62,7 +62,7 @@ namespace AtTheFront
                 throw new FormatException("変換出来ない文字列が検出されました。");
             }
             // 修飾キー以外が無ければ終了
-            if (keyString.Length == 1)
+            if (keyStrings.Length == 1)
             {
                 return (KeyModifier.NONE, inputKey);
             }
