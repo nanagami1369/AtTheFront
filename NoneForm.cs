@@ -11,20 +11,6 @@ namespace AtTheFront
             Application.Exit();
         }
 
-        private void SetComponents()
-        {
-            NotifyIcon icon = new NotifyIcon();
-            icon.Icon = Properties.Resources.app;
-            icon.Visible = true;
-            icon.Text = nameof(AtTheFront);
-            ContextMenuStrip menu = new ContextMenuStrip();
-            ToolStripMenuItem menuItem = new ToolStripMenuItem();
-            menuItem.Text = "&終了";
-            menuItem.Click += new EventHandler(Close_Click);
-            menu.Items.Add(menuItem);
-            icon.ContextMenuStrip = menu;
-        }
-
         private static void ToFront()
         {
             try
@@ -50,7 +36,18 @@ namespace AtTheFront
         public NoneForm(KeyModifier keyModifier, Keys key)
         {
             ShowInTaskbar = false;
-            SetComponents();
+            var icon = new NotifyIcon();
+            icon.Icon = Properties.Resources.app;
+            icon.Visible = true;
+            icon.Text = nameof(AtTheFront);
+            var menu = new ContextMenuStrip();
+            // 終了メニュー
+            var exitMenuItem = new ToolStripMenuItem();
+            exitMenuItem.Text = "&終了";
+            exitMenuItem.Click += new EventHandler(Close_Click);
+            menu.Items.Add(exitMenuItem);
+            icon.ContextMenuStrip = menu;
+
             _hotkeyManager.Register(this, keyModifier, key, ToFront);
         }
 
