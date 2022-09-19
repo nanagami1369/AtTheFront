@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Windows.Forms;
 
@@ -80,6 +80,7 @@ namespace AtTheFront
                 return;
             }
             _isClosedProperly = true;
+            DialogResult = DialogResult.OK;
             Close();
             _isClosedProperly = false;
         }
@@ -93,7 +94,9 @@ namespace AtTheFront
                     e.Cancel = true;
                     return;
                 }
-                throw new NotInputHotKeyDialogException("キーボードショートカットが登録されませんでした");
+                Modifier = KeyModifier.NONE;
+                Key = Keys.None;
+                DialogResult = DialogResult.Cancel;
             }
         }
     }
