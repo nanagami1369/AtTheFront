@@ -6,6 +6,15 @@
 
 常駐型のアプリです。
 
+## build
+
+```cmd
+git clone https://github.com/nanagami1369/AtTheFront/
+cd AtTheFront\
+dotnet build
+
+```
+
 ## 実行方法
 
 1. AtTheFront.exeをダブルクリック
@@ -16,15 +25,6 @@
 ## 終了方法
 
 タスクバーのアイコンを右クリック→`終了`
-
-## build
-
-```cmd
-git clone https://github.com/nanagami1369/AtTheFront/
-cd AtTheFront\
-dotnet build
-
-```
 
 ## スタートアップに登録
 
