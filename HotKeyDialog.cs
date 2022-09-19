@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,7 +16,7 @@ namespace AtTheFront
 
         public KeyModifier Modifier { get; private set; } = KeyModifier.NONE;
         public Keys Key { get; private set; } = Keys.None;
-
+        public string FormatHotKeyText { get; private set; } = "";
         private void InputHotKeyBox_KeyDown(object sender, KeyEventArgs e)
         {
             var keyCode = e.KeyCode & ~Keys.Modifiers;
@@ -53,6 +53,7 @@ namespace AtTheFront
                 .Append(e.Alt ? "Alt+" : "")
                 .Append(Key != Keys.None ? Key.ToString() : "");
             InputHotKeyBox.Text = hotKeyText.ToString();
+            FormatHotKeyText = hotKeyText.ToString();
         }
 
         private void InputHotKeyBox_KeyUp(object sender, KeyEventArgs e)

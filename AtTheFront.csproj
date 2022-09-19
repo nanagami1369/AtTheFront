@@ -34,6 +34,12 @@
 	<None Update="LICENSE">
 	  <CopyToOutputDirectory Condition="'$(Configuration)' == 'Release'">PreserveNewest</CopyToOutputDirectory>
 	</None>
+	<None Update="スタートアップから解除.cmd">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="スタートアップに登録.cmd">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
