@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     [Serializable]
     public class WindowManagerException : Exception

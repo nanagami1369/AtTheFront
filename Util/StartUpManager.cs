@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Reflection;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     public static class StartUpManager
     {
@@ -15,7 +15,8 @@ namespace AtTheFront
             }
         }
 
-        public static void UnRegisterStartUp() {
+        public static void UnRegisterStartUp()
+        {
             using (var key = Registry.CurrentUser.OpenSubKey(keyName, true))
             {
                 key.DeleteValue(nameof(AtTheFront), true);

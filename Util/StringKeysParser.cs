@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     public static class StringKeysParser
     {
@@ -11,7 +11,7 @@ namespace AtTheFront
             if (Enum.TryParse(s, out key) && Enum.IsDefined(typeof(Keys), key))
             {
                 key &= ~Keys.Modifiers;
-                return (key != Keys.None);
+                return key != Keys.None;
             }
             else
             {

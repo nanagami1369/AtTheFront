@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     public static class WindowManager
     {

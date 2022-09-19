@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     public class HotKeyManager
     {

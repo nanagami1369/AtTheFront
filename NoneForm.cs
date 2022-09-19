@@ -1,5 +1,7 @@
 using System;
 using System.Windows.Forms;
+using AtTheFront.Util;
+
 namespace AtTheFront
 {
     public class NoneForm : Form

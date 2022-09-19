@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtTheFront
+namespace AtTheFront.Util
 {
     [Flags]
     public enum KeyModifier
