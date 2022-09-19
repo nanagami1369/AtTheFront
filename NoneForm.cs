@@ -41,11 +41,20 @@ namespace AtTheFront
             icon.Visible = true;
             icon.Text = nameof(AtTheFront);
             var menu = new ContextMenuStrip();
+            // キーボードショートカット表示
+            {
+                var menuItem = new ToolStripMenuItem();
+                menuItem.Text = StringKeysParser.KeysToString(keyModifier, key);
+                menu.Items.Add(menuItem);
+            }
+            menu.Items.Add(new ToolStripSeparator());
             // 終了メニュー
-            var exitMenuItem = new ToolStripMenuItem();
-            exitMenuItem.Text = "&終了";
-            exitMenuItem.Click += new EventHandler(Close_Click);
-            menu.Items.Add(exitMenuItem);
+            {
+                var menuItem = new ToolStripMenuItem();
+                menuItem.Text = "&終了";
+                menuItem.Click += new EventHandler(Close_Click);
+                menu.Items.Add(menuItem);
+            }
             icon.ContextMenuStrip = menu;
 
             _hotkeyManager.Register(this, keyModifier, key, ToFront);

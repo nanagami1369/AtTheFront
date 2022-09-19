@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Windows.Forms;
 
 namespace AtTheFront
@@ -81,5 +82,17 @@ namespace AtTheFront
             }
             return (keyModifier, inputKey);
         }
+        public static string KeysToString(KeyModifier keyModifier, Keys key)
+        {
+            var hotKeyText = new StringBuilder();
+            return hotKeyText
+                .Append(keyModifier.HasFlag(KeyModifier.MOD_WIN) ? "Win+" : "")
+                .Append(keyModifier.HasFlag(KeyModifier.MOD_CONTROL) ? "Ctrl+" : "")
+                .Append(keyModifier.HasFlag(KeyModifier.MOD_SHIFT) ? "Shift+" : "")
+                .Append(keyModifier.HasFlag(KeyModifier.MOD_ALT) ? "Alt+" : "")
+                .Append(key != Keys.None ? key.ToString() : "")
+                .ToString();
+        }
+
     }
 }
