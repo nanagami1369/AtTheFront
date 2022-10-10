@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="powershell.exe $(ProjectDir)\buildTools\Packaging.ps1 $(ProjectDir)\$(OutDir)" />
+    <Exec Command="powershell.exe $(ProjectDir)\buildTools\Packaging.ps1 $(ProjectDir)\$(OutDir)\${TargetFrameworkVersion}" />
   </Target>
 
 </Project>
