@@ -39,46 +39,42 @@ namespace AtTheFront
                     }
                     break;
                 case _unRegisterStartUpCommand:
+                    try
+                    {
+                        StartUpManager.UnRegisterStartUp();
+                        MessageBox.Show("スタートアップから解除されました");
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, "スタートアップ解除時にエラーが発生しました");
+                    }
+                    break;
+                default:
+                    if (string.IsNullOrEmpty(option))
+                    {
+                        var result = dialog.ShowDialog();
+                        if (result == DialogResult.Cancel)
+                        {
+                            MessageBox.Show("キーボードショートカットが登録されませんでした");
+                            return;
+                        }
+                        var app = new NoneForm(dialog.Modifier, dialog.Key);
+                    }
+                    else
                     {
                         try
                         {
-                            StartUpManager.UnRegisterStartUp();
-                            MessageBox.Show("スタートアップから解除されました");
+                            var (modifier, key) = StringKeysParser.StringToKeys(option);
+                            var app = new NoneForm(modifier, key);
                         }
-                        catch (Exception e)
+                        catch (FormatException e)
                         {
-                            MessageBox.Show(e.Message, "スタートアップ解除時にエラーが発生しました");
+                            MessageBox.Show(e.Message);
+                            return;
                         }
-                        break;
                     }
-                default:
-                    {
-                        if (string.IsNullOrEmpty(option))
-                        {
-                            var result = dialog.ShowDialog();
-                            if (result == DialogResult.Cancel)
-                            {
-                                MessageBox.Show("キーボードショートカットが登録されませんでした");
-                                return;
-                            }
-                            var app = new NoneForm(dialog.Modifier, dialog.Key);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                var (modifier, key) = StringKeysParser.StringToKeys(option);
-                                var app = new NoneForm(modifier, key);
-                            }
-                            catch (FormatException e)
-                            {
-                                MessageBox.Show(e.Message);
-                                return;
-                            }
-                        }
-                        Application.Run();
-                        break;
-                    }
+                    Application.Run();
+                    break;
             }
         }
     }
