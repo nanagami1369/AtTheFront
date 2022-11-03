@@ -9,6 +9,8 @@ namespace AtTheFront
     {
         private const string _registerStartUpCommand = "startUpRegister";
         private const string _unRegisterStartUpCommand = "startUpUnRegister";
+        private static HotKeyDialog _dialog = new HotKeyDialog();
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -16,49 +18,26 @@ namespace AtTheFront
         static void Main(string[] args)
         {
             var option = args.Length != 0 ? args[0] : "";
-            var dialog = new HotKeyDialog();
 
             switch (option)
             {
-                // StartUp‚Ö‚Ì“o˜^ˆ—
+                // StartUpã¸ã®ç™»éŒ²å‡¦ç†
                 case _registerStartUpCommand:
-                    try
-                    {
-                        var result = dialog.ShowDialog();
-                        if (result == DialogResult.Cancel)
-                        {
-                            MessageBox.Show("ƒL[ƒ{[ƒhƒVƒ‡[ƒgƒJƒbƒg‚ª“o˜^‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
-                            return;
-                        }
-                        StartUpManager.RegisterStartUp($"\"{Assembly.GetEntryAssembly().Location}\" \"{dialog.FormatHotKeyText}\"");
-                        MessageBox.Show("ƒXƒ^[ƒgƒAƒbƒv‚É“o˜^‚³‚ê‚Ü‚µ‚½");
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message, "ƒXƒ^[ƒgƒAƒbƒv‚Ö‚Ì“o˜^Žž‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½");
-                    }
+                    RegisterStartUp();
                     break;
                 case _unRegisterStartUpCommand:
-                    try
-                    {
-                        StartUpManager.UnRegisterStartUp();
-                        MessageBox.Show("ƒXƒ^[ƒgƒAƒbƒv‚©‚ç‰ðœ‚³‚ê‚Ü‚µ‚½");
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message, "ƒXƒ^[ƒgƒAƒbƒv‰ðœŽž‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½");
-                    }
+                    UnRegisterStartUp();
                     break;
                 default:
                     if (string.IsNullOrEmpty(option))
                     {
-                        var result = dialog.ShowDialog();
+                        var result = _dialog.ShowDialog();
                         if (result == DialogResult.Cancel)
                         {
-                            MessageBox.Show("ƒL[ƒ{[ƒhƒVƒ‡[ƒgƒJƒbƒg‚ª“o˜^‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
+                            MessageBox.Show("ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆãŒç™»éŒ²ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸ");
                             return;
                         }
-                        var app = new NoneForm(dialog.Modifier, dialog.Key);
+                        var app = new NoneForm(_dialog.Modifier, _dialog.Key);
                     }
                     else
                     {
@@ -75,6 +54,37 @@ namespace AtTheFront
                     }
                     Application.Run();
                     break;
+            }
+        }
+
+        private static void RegisterStartUp()
+        {
+            try
+            {
+                var result = _dialog.ShowDialog();
+                if (result == DialogResult.Cancel)
+                {
+                    MessageBox.Show("ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆãŒç™»éŒ²ã•ã‚Œã¾ã›ã‚“ã§ã—ãŸ");
+                    return;
+                }
+                StartUpManager.RegisterStartUp($"\"{Assembly.GetEntryAssembly().Location}\" \"{_dialog.FormatHotKeyText}\"");
+                MessageBox.Show("ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ã«ç™»éŒ²ã•ã‚Œã¾ã—ãŸ");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ã¸ã®ç™»éŒ²æ™‚ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸ");
+            }
+        }
+
+        private static void UnRegisterStartUp() {
+            try
+            {
+                StartUpManager.UnRegisterStartUp();
+                MessageBox.Show("ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—ã‹ã‚‰è§£é™¤ã•ã‚Œã¾ã—ãŸ");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "ã‚¹ã‚¿ãƒ¼ãƒˆã‚¢ãƒƒãƒ—è§£é™¤æ™‚ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸ");
             }
         }
     }
